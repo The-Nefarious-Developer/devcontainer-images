@@ -1,0 +1,19 @@
+{
+    "name": "devcontainer-images",
+    "version": "1.0.0",
+    "description": "Nefarious Development Container Images",
+    "author": "Nicholas Checan",
+    "license": "MIT",
+    "homepage": "https://github.com/The-Nefarious-Developer/devcontainer-images#readme",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/The-Nefarious-Developer/devcontainer-images.git"
+    },
+    "bugs": {
+      "url": "https://github.com/The-Nefarious-Developer/devcontainer-images/issues"
+    },
+    "devDependencies": {
+      "@devcontainers/cli": "^0.71.0"
+    }
+  }
+  
