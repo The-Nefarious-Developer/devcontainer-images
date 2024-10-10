@@ -2,7 +2,7 @@
 set -euo pipefail
 source "$(dirname "$0")/../test-utils/harness.sh"
 
-setup "sap-cap-javascript-node" "22"
+setup "sap-cap-javascript-node" "$VARIANT"
 
 run_test "Node version is correct" "node -v" "$IMAGE_TAG"
 run_test "NPM is present" "npm --help" "npm <command>"

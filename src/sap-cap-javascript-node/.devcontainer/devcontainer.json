@@ -1,7 +1,10 @@
 {
 	"name": "CAP",
 	"build": {
-		"dockerfile": "Dockerfile"
+		"dockerfile": "Dockerfile",
+		"args": {
+      		"VARIANT": "__VARIANT__"
+    	}
 	},
 	// Configure tool-specific properties
 	"customizations": {
