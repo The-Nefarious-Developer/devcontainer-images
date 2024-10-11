@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       template_dirs: ${{ steps.get-dirs.outputs.dirs }}
+      # template_variants: ${{ steps.get-variants.outputs.variants }}
     steps:
 
       - name: Checkout
@@ -25,6 +26,12 @@ jobs:
       - name: Get list of test directories
         id: get-dirs
         run: echo "dirs=$(ls -d test/*/ | grep -v 'test/test-utils/' | jq -R -s -c 'split("\n")[:-1] | map(split("/")[1])')" >> $GITHUB_OUTPUT
+      
+      # - name: Get list of variants for an image
+      #   id: get-variants
+      #   run: |
+      #     variants=$(cat variants.json)
+      #     echo "variants=${variants}" >> $GITHUB_ENV
 
   test:
     name: Run test on images
