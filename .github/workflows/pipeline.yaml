@@ -27,7 +27,7 @@ jobs:
         run: echo "dirs=$(ls -d test/*/ | grep -v 'test/test-utils/' | jq -R -s -c 'split("\n")[:-1] | map(split("/")[1])')" >> $GITHUB_OUTPUT
 
   test:
-    name: Run test on image
+    name: Run test on images
     runs-on: ubuntu-latest
     needs: setup
     strategy:
@@ -64,7 +64,9 @@ jobs:
   build:
     name: Build devcontainer images
     runs-on: ubuntu-latest
-    needs: test
+    needs: 
+      - setup
+      - test
     strategy:
       matrix:
         template: ${{ fromJson(needs.setup.outputs.template_dirs) }}
@@ -89,7 +91,7 @@ jobs:
         env:
           TEMPLATE: ${{ matrix.template }}
           VARIANT: ${{ matrix.variant }}
-        run: .github/workflows/build.sh
+        run: scripts/build.sh
 
       # - name: Build devcontainer
       #   run: |
