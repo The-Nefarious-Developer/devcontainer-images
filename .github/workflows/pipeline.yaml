@@ -1,8 +1,8 @@
 name: Build, Test and Deploy
 on: 
   push:
-    # paths:
-    #   - 'src/**'
+    paths:
+      - 'src/**'
   workflow_dispatch:
 
 permissions:
@@ -80,7 +80,7 @@ jobs:
 
   publish:
     name: Publish image(s)
-    # if: ${{ github.event.base_ref == 'refs/heads/main' }}
+    if: ${{ github.event.base_ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     environment: publishing
     needs: 
@@ -125,7 +125,7 @@ jobs:
   
   release:
     name: Generate release
-    # if: ${{ github.event.base_ref == 'refs/heads/main' }}
+    if: ${{ github.event.base_ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     needs: publish
     steps:
