@@ -93,13 +93,10 @@ jobs:
           path: .
       
       - name: Unzip build files
-        run: unzip build-files.zip -d ./dist/
+        run: unzip build-files.zip -d .
 
       - name: Install devcontainer cli
         run: npm install -g @devcontainers/cli
-
-      - name: Debug
-        run: ls ./dist/ -R
 
       # - name: Build devcontainer
       #   run: |
