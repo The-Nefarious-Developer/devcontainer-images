@@ -1,6 +1,7 @@
 # Nefarious Development Container Images
 
 [![Build, Test and Deploy](https://github.com/The-Nefarious-Developer/devcontainer-images/actions/workflows/pipeline.yaml/badge.svg)](https://github.com/The-Nefarious-Developer/devcontainer-images/actions/workflows/pipeline.yaml)
+[![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 
 A set of development container images that can be used for SAP BTP development with Cloud Application Programming Model projects in Visual Studio Code.
 

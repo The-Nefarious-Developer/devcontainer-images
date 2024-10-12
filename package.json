@@ -21,7 +21,7 @@
         "semantic-release": "^24.1.2"
     },
     "release": {
-        "branches": [ "main", "pipeline" ],
+        "branches": [ "main" ],
         "plugins": [
             "@semantic-release/commit-analyzer",
             "@semantic-release/release-notes-generator",
