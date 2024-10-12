@@ -77,6 +77,7 @@ jobs:
 
   publish:
     name: Publish image(s)
+    if: ${{ github.event.base_ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     environment: publishing
     needs: 
