@@ -50,8 +50,8 @@ jobs:
 
       - name: Run test for ${{ matrix.template }}
         env:
-          VARIANT: ${{ matrix.variant }}
-        run: test/${{ matrix.template }}/test.sh
+          VARIANT: ${{ matrix.VARIANT }}
+        run: test/${{ matrix.TEMPLATE }}/test.sh
 
   #     - name: Run test for ${{ matrix.template }}
   #       env:
