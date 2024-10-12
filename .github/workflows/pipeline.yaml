@@ -77,6 +77,12 @@ jobs:
       fail-fast: false
     steps:
 
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: dist
+          path: ./dist
+
       - name: Install devcontainer cli
         run: npm install -g @devcontainers/cli
 
