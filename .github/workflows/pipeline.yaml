@@ -65,17 +65,25 @@ jobs:
           VARIANT: ${{ matrix.variant.VERSION }}
         run: test/${{ matrix.variant.IMAGE }}/test.sh
 
-  # publish:
-  #   name: Publish images
-  #   runs-on: ubuntu-latest
-  #   needs: 
-  #    - setup
-  #    - test
-  #   strategy:
-  #     matrix:
-  #       variant: ${{ fromJson(needs.setup.outputs.matrix) }}
-  #     fail-fast: false
-  #   steps:
+  publish:
+    name: Publish images
+    runs-on: ubuntu-latest
+    needs: 
+     - setup
+     - test
+    strategy:
+      matrix:
+        variant: ${{ fromJson(needs.setup.outputs.matrix) }}
+      fail-fast: false
+    steps:
+
+      - name: Build devcontainer
+        run: |
+          echo "starting devcontainer build..."
+          devcontainer build \
+            --workspace-folder dist/${{ matrix.variant.IMAGE }}/${{ matrix.variant.VERSION }}/  \
+            --image-name ghcr.io/The-Nefarious-Developer/${{ matrix.variant.IMAGE }}:${{ matrix.variant.VERSION }} \
+            # --no-cache true
 
   #     - name: Checkout
   #       uses: actions/checkout@v4
