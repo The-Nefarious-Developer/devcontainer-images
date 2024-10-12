@@ -20,6 +20,9 @@ jobs:
           name: dist
           path: ./dist/
 
+      - name: Debug
+        run: ls ./dist/sap-cap-javascript-node/
+
   setup:
     name: Setup environment
     runs-on: ubuntu-latest
