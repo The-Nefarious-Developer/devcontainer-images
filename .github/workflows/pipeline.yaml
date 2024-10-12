@@ -38,7 +38,7 @@ jobs:
         id: get-variants
         run: |
           # Read the content of the variants file from the downloaded artifact
-          variants=$(cat ./dist/variant-matrix.json)
+          variants=$(jq -c . ./dist/variant-matrix.json)
           echo "variants=${variants}" >> $GITHUB_ENV
 
   # test:
