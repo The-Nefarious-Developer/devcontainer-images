@@ -32,14 +32,13 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: dist
-          path: .
 
       - name: Checkout
         uses: actions/checkout@v4
       
       - name: Get list of variants for an image
         id: get-variants
-        run: echo "variants=$(cat dist/variant-matrix.json)" >> $GITHUB_ENV
+        run: echo "variants=$(cat devcontainer-images/dist/variant-matrix.json)" >> $GITHUB_ENV
 
   # test:
   #   name: Run test on images

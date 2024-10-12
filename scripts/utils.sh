@@ -12,14 +12,10 @@ create_image() {
     fi
 
     # Define project directories
-    # local SRC_DIR
-    # SRC_DIR=$(dirname "$(realpath "$0")")
-    # local SRC_PATH="$SRC_DIR/../src/$TEMPLATE"
-    # local TARGET_DIR="$SRC_DIR/../dist/${TEMPLATE}/${VARIANT}"
-    local REPO_ROOT
-    REPO_ROOT=$(git rev-parse --show-toplevel)
-    local SRC_PATH="$REPO_ROOT/src/$TEMPLATE"
-    local TARGET_DIR="$REPO_ROOT/dist/${TEMPLATE}/${VARIANT}"
+    local SRC_DIR
+    SRC_DIR=$(dirname "$(realpath "$0")")
+    local SRC_PATH="$SRC_DIR/../src/$TEMPLATE"
+    local TARGET_DIR="$SRC_DIR/../dist/${TEMPLATE}/${VARIANT}"
 
     # Check if the source directory exists
     if [ ! -d "$SRC_PATH" ]; then
