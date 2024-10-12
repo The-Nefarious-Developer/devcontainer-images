@@ -17,6 +17,7 @@ jobs:
   setup:
     name: Setup environment
     runs-on: ubuntu-latest
+    needs: build
     outputs:
       variants_matrix: ${{ steps.get-variants.outputs.variants }}
     steps:
