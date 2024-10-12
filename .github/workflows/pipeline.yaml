@@ -50,10 +50,8 @@ jobs:
       fail-fast: false
     steps:
 
-      - name: Display variant information
-        run: |
-          echo "Testing TEMPLATE: ${{ matrix.variant.TEMPLATE }}"
-          echo "Testing VARIANT: ${{ matrix.variant.VARIANT }}"
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Run test for ${{ matrix.variant.TEMPLATE }}
         env:
