@@ -90,7 +90,7 @@ jobs:
         run: npm install -g @devcontainers/cli
 
       - name: Debug
-        run: pwd
+        run: ls ./dist
 
       # - name: Build devcontainer
       #   run: |
