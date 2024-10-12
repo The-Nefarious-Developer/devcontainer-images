@@ -4,7 +4,7 @@ on: [ push, workflow_dispatch ]
 jobs:
 
   build:
-    name: Setup environment and determine templates
+    name: Determine templates
     runs-on: ubuntu-latest
     steps:
 
@@ -14,16 +14,15 @@ jobs:
       - name: Build dist
         run: npm run build
 
-  # setup:
-  #   name: Setup environment and determine templates
-  #   runs-on: ubuntu-latest
-  #   outputs:
-  #     template_dirs: ${{ steps.get-dirs.outputs.dirs }}
-  #     # template_variants: ${{ steps.get-variants.outputs.variants }}
-  #   steps:
+  setup:
+    name: Setup environment
+    runs-on: ubuntu-latest
+    outputs:
+      variants_matrix: ${{ steps.get-variants.outputs.variants }}
+    steps:
 
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
   #     - name: Setup Node
   #       uses: actions/setup-node@v4
@@ -33,16 +32,10 @@ jobs:
 
   #     - name: Install dependencies
   #       run: npm ci
-
-  #     - name: Get list of test directories
-  #       id: get-dirs
-  #       run: echo "dirs=$(ls -d test/*/ | grep -v 'test/test-utils/' | jq -R -s -c 'split("\n")[:-1] | map(split("/")[1])')" >> $GITHUB_OUTPUT
       
-  #     # - name: Get list of variants for an image
-  #     #   id: get-variants
-  #     #   run: |
-  #     #     variants=$(cat variants.json)
-  #     #     echo "variants=${variants}" >> $GITHUB_ENV
+      - name: Get list of variants for an image
+        id: get-variants
+        run: echo "variants=$(cat variants.json)" >> $GITHUB_ENV
 
   # test:
   #   name: Run test on images
