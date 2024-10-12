@@ -3,11 +3,11 @@ set -euo pipefail
 source "$(dirname "$0")/utils.sh"
 
 # Get all directories in src (avoid using find if not needed)
-TEMPLATES=(src/*/)
+IMAGES=(src/*/)
 
-for TEMPLATE in "${TEMPLATES[@]}"; do
-    TEMPLATE=$(basename "$TEMPLATE")
-    VARIANTS_FILE="src/${TEMPLATE}/variants.json"
+for IMAGE in "${IMAGES[@]}"; do
+    IMAGE=$(basename "$IMAGE")
+    VARIANTS_FILE="src/${IMAGE}/variants.json"
 
     # Check if the variants file exists
     if [[ ! -f "$VARIANTS_FILE" ]]; then
@@ -20,7 +20,7 @@ for TEMPLATE in "${TEMPLATES[@]}"; do
 
     # Iterate over each variant and create an image in parallel
     for VARIANT in $VARIANTS; do
-        create_image "$TEMPLATE" "$VARIANT" &
+        create_image "$IMAGE" "$VARIANT" &
     done
 
     # Wait for all background jobs to finish

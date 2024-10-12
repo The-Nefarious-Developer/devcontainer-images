@@ -2,20 +2,20 @@
 set -euo pipefail
 
 create_image() {
-    local TEMPLATE=$1
+    local IMAGE=$1
     local VARIANT=$2
 
     # Validate inputs
-    if [ -z "$TEMPLATE" ] || [ -z "$VARIANT" ]; then
-        echo "Error: TEMPLATE and VARIANT must be set"
+    if [ -z "$IMAGE" ] || [ -z "$VARIANT" ]; then
+        echo "Error: IMAGE and VARIANT must be set"
         exit 1
     fi
 
     # Define project directories
     local SRC_DIR
     SRC_DIR=$(dirname "$(realpath "$0")")
-    local SRC_PATH="$SRC_DIR/../src/$TEMPLATE"
-    local TARGET_DIR="$SRC_DIR/../dist/${TEMPLATE}/${VARIANT}"
+    local SRC_PATH="$SRC_DIR/../src/$IMAGE"
+    local TARGET_DIR="$SRC_DIR/../dist/${IMAGE}/${VARIANT}"
 
     # Check if the source directory exists
     if [ ! -d "$SRC_PATH" ]; then
@@ -40,29 +40,29 @@ create_image() {
         echo "Warning: $DEVCONTAINER_JSON not found, skipping variant substitution"
     fi
 
-    echo "Build process complete for template: $TEMPLATE, variant: $VARIANT."
+    echo "Build process complete for image: $IMAGE, variant: $VARIANT."
 }
 
 create_variant_matrix() {
     local VARIANT_MATRIX_FILE="dist/variant-matrix.json"
-    local TEMPLATE VARIANT TEMPLATES VARIANTS
+    local IMAGE VARIANT IMAGES VARIANTS
 
     # Initialize the variant-matrix.json file with an empty array
     echo '{ "variants": [] }' > "$VARIANT_MATRIX_FILE"
   
-    # Get a list of templates (directories in dist)
-    TEMPLATES=$(find dist -mindepth 1 -maxdepth 1 -type d -printf "%f\n")
+    # Get a list of images (directories in dist)
+    IMAGES=$(find dist -mindepth 1 -maxdepth 1 -type d -printf "%f\n")
 
     # Initialize an array to collect JSON objects
     variant_items=()
 
-    for TEMPLATE in $TEMPLATES; do
-        # Get a list of variants (subdirectories in each template folder)
-        VARIANTS=$(find dist/"$TEMPLATE" -mindepth 1 -maxdepth 1 -type d -printf "%f\n")
+    for IMAGE in $IMAGES; do
+        # Get a list of variants (subdirectories in each image folder)
+        VARIANTS=$(find dist/"$IMAGE" -mindepth 1 -maxdepth 1 -type d -printf "%f\n")
         
         for VARIANT in $VARIANTS; do
-            # Create a JSON object with TEMPLATE and VARIANT attributes
-            variant_items+=("{\"TEMPLATE\": \"$TEMPLATE\", \"VARIANT\": \"$VARIANT\"}")
+            # Create a JSON object with IMAGE and VARIANT attributes
+            variant_items+=("{\"IMAGE\": \"$IMAGE\", \"VARIANT\": \"$VARIANT\"}")
         done
     done
 
