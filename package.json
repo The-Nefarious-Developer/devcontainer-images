@@ -6,17 +6,42 @@
     "license": "MIT",
     "homepage": "https://github.com/The-Nefarious-Developer/devcontainer-images#readme",
     "repository": {
-      "type": "git",
-      "url": "git+https://github.com/The-Nefarious-Developer/devcontainer-images.git"
+        "type": "git",
+        "url": "git+https://github.com/The-Nefarious-Developer/devcontainer-images.git"
     },
     "bugs": {
-      "url": "https://github.com/The-Nefarious-Developer/devcontainer-images/issues"
+        "url": "https://github.com/The-Nefarious-Developer/devcontainer-images/issues"
     },
     "devDependencies": {
-      "@devcontainers/cli": "^0.71.0"
+        "@devcontainers/cli": "^0.71.0",
+        "@semantic-release/changelog": "^6.0.3",
+        "@semantic-release/commit-analyzer": "^13.0.0",
+        "@semantic-release/github": "^11.0.0",
+        "@semantic-release/release-notes-generator": "^14.0.1",
+        "semantic-release": "^24.1.2"
+    },
+    "release": {
+        "branches": [ "main", "pipeline" ],
+        "plugins": [
+            "@semantic-release/commit-analyzer",
+            "@semantic-release/release-notes-generator",
+            "@semantic-release/changelog",
+            [
+                "@semantic-release/github",
+                {
+                    "assets": [
+                        {
+                            "path": "CHANGELOG.md",
+                            "label": "Changelog"
+                        }
+                    ]
+                }
+            ]
+        ]
     },
     "scripts": {
-      "build": "scripts/build.sh"
+        "build": "scripts/build.sh",
+        "semantic-release": "semantic-release",
+        "test:semantic-release": "semantic-release --dry-run --debug"
     }
-  }
-  
+}
