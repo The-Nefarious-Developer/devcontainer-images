@@ -90,7 +90,7 @@ jobs:
         run: |
           echo "starting devcontainer build..."
           devcontainer build \
-            --workspace-folder dist/${{ matrix.variant.IMAGE }}/${{ matrix.variant.VERSION }}/  \
+            --workspace-folder ./dist/${{ matrix.variant.IMAGE }}/${{ matrix.variant.VERSION }}/  \
             --image-name ghcr.io/The-Nefarious-Developer/${{ matrix.variant.IMAGE }}:${{ matrix.variant.VERSION }} \
             # --no-cache true
 
