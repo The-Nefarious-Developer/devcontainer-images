@@ -38,7 +38,6 @@ jobs:
         id: get-variants
         run: echo "::set-output name=matrix::$(jq -c '.variants' ./dist/variant-matrix.json)"
 
-
   test:
     name: Run test on image
     runs-on: ubuntu-latest
@@ -63,26 +62,18 @@ jobs:
 
       - name: Run test for ${{ matrix.variant.IMAGE }}
         env:
-          VARIANT: ${{ matrix.variant.VARIANT }}
+          VARIANT: ${{ matrix.variant.VERSION }}
         run: test/${{ matrix.variant.IMAGE }}/test.sh
 
-  # build:
-  #   name: Build devcontainer images
+  # publish:
+  #   name: Publish images
   #   runs-on: ubuntu-latest
   #   needs: 
-  #     - setup
-  #     - test
+  #    - setup
+  #    - test
   #   strategy:
   #     matrix:
-  #       template: ${{ fromJson(needs.setup.outputs.template_dirs) }}
-  #       variant: [
-  #         "22-bookworm",
-  #         "22-bullseye",
-  #         "20-bookworm",
-  #         "20-bullseye",
-  #         "18-bookworm",
-  #         "18-bullseye"
-  #       ]
+  #       variant: ${{ fromJson(needs.setup.outputs.matrix) }}
   #     fail-fast: false
   #   steps:
 

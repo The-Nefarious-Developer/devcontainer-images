@@ -62,7 +62,7 @@ create_variant_matrix() {
         
         for VARIANT in $VARIANTS; do
             # Create a JSON object with IMAGE and VARIANT attributes
-            variant_items+=("{\"IMAGE\": \"$IMAGE\", \"VARIANT\": \"$VARIANT\"}")
+            variant_items+=("{\"IMAGE\": \"$IMAGE\", \"VERSION\": \"$VARIANT\"}")
         done
     done
 
