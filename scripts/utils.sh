@@ -15,7 +15,8 @@ create_image() {
     local SRC_DIR
     SRC_DIR=$(dirname "$(realpath "$0")")
     local SRC_PATH="$SRC_DIR/../src/$TEMPLATE"
-    local TARGET_DIR="$SRC_DIR/../dist/${TEMPLATE}/${VARIANT}"
+    # local TARGET_DIR="$SRC_DIR/../dist/${TEMPLATE}/${VARIANT}"
+    local TARGET_DIR="dist/${TEMPLATE}/${VARIANT}"
 
     # Check if the source directory exists
     if [ ! -d "$SRC_PATH" ]; then
