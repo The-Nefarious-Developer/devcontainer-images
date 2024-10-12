@@ -55,11 +55,10 @@ jobs:
           echo "Testing TEMPLATE: ${{ matrix.variant.TEMPLATE }}"
           echo "Testing VARIANT: ${{ matrix.variant.VARIANT }}"
 
-
-      # - name: Run test for ${{ matrix.variant.TEMPLATE }}
-      #   env:
-      #     VARIANT: ${{ matrix.variant.VARIANT }}
-      #   run: test/${{ matrix.variant.TEMPLATE }}/test.sh
+      - name: Run test for ${{ matrix.variant.TEMPLATE }}
+        env:
+          VARIANT: ${{ matrix.variant.VARIANT }}
+        run: test/${{ matrix.variant.TEMPLATE }}/test.sh
 
   #     - name: Run test for ${{ matrix.template }}
   #       env:
