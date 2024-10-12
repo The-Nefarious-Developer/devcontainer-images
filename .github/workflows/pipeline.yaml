@@ -77,6 +77,9 @@ jobs:
       fail-fast: false
     steps:
 
+      - name: Install devcontainer cli
+        run: npm install -g @devcontainers/cli
+
       - name: Build devcontainer
         run: |
           echo "starting devcontainer build..."
