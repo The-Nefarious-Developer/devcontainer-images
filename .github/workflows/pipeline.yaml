@@ -5,6 +5,9 @@ on:
     #   - 'src/**'
   workflow_dispatch:
 
+permissions:
+  contents: write  # Ensure the GitHub Actions bot has write access
+
 jobs:
 
   build:
