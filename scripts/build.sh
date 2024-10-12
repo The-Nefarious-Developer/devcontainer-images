@@ -26,7 +26,6 @@ for TEMPLATE in "${TEMPLATES[@]}"; do
     # Wait for all background jobs to finish
     wait
 done
-
 echo "Images creation process complete."
 
 # Generate the variant-matrix.json file for pipeline automation
