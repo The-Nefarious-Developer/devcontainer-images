@@ -17,8 +17,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: dist
-          path: ./dist/**/**/.devcontainer/*
+          name: build-files
+          path: ./dist/
 
   setup:
     name: Setup environment
@@ -31,8 +31,8 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
-          name: dist
-          path: ./dist
+          name: build-files
+          path: ./dist/
       
       - name: Get list of variants for an image
         id: get-variants
