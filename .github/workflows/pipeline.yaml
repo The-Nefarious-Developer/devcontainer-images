@@ -89,30 +89,13 @@ jobs:
       - name: Install devcontainer cli
         run: npm install -g @devcontainers/cli
 
-      - name: Build devcontainer
-        run: |
-          echo "starting devcontainer build..."
-          devcontainer build \
-            --workspace-folder ./dist/${{ matrix.variant.IMAGE }}/${{ matrix.variant.VERSION }}  \
-            --image-name ghcr.io/The-Nefarious-Developer/${{ matrix.variant.IMAGE }}:${{ matrix.variant.VERSION }} \
-            # --no-cache true
+      - name: Debug
+        run: pwd
 
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
-
-  #     - name: Install devcontainer cli
-  #       run: npm install -g @devcontainers/cli
-
-  #     - name: Build image ${{ matrix.template }}/${{ matrix.variant }}
-  #       env:
-  #         TEMPLATE: ${{ matrix.template }}
-  #         VARIANT: ${{ matrix.variant }}
-  #       run: scripts/build.sh
-
-  #     # - name: Build devcontainer
-  #     #   run: |
-  #     #     echo "starting devcontainer build..."
-  #     #     devcontainer build \
-  #     #       --workspace-folder tmp/src/${{ matrix.template }}/${{ matrix.variant }}/  \
-  #     #       --image-name ghcr.io/The-Nefarious-Developer/${{ matrix.template }}:${{ matrix.variant }} \
-  #     #       # --no-cache true
+      # - name: Build devcontainer
+      #   run: |
+      #     echo "starting devcontainer build..."
+      #     devcontainer build \
+      #       --workspace-folder ./dist/${{ matrix.variant.IMAGE }}/${{ matrix.variant.VERSION }}  \
+      #       --image-name ghcr.io/The-Nefarious-Developer/${{ matrix.variant.IMAGE }}:${{ matrix.variant.VERSION }} \
+      #       # --no-cache true
