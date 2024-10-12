@@ -38,7 +38,7 @@ jobs:
           path: .
       
       - name: Unzip build files
-        run: unzip build-files.zip -d ./dist/
+        run: unzip build-files.zip -d .
       
       - name: Get list of variants for an image
         id: get-variants
