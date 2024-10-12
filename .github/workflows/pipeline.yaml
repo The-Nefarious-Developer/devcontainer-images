@@ -33,9 +33,6 @@ jobs:
         with:
           name: dist
           path: ./dist
-
-      - name: Checkout
-        uses: actions/checkout@v4
       
       - name: Get list of variants for an image
         id: get-variants
