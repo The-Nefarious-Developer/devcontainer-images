@@ -90,7 +90,7 @@ jobs:
         run: npm install -g @devcontainers/cli
 
       - name: Debug
-        run: ls ./dist
+        run: ls ./dist/sap-cap-javascript-node/
 
       # - name: Build devcontainer
       #   run: |
