@@ -14,11 +14,14 @@ jobs:
       - name: Build dist
         run: npm run build
 
+      - name: Compress build files
+        run: zip -r build-files.zip ./dist/
+
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: build-files
-          path: ./dist/
+          path: build-files.zip
 
   setup:
     name: Setup environment
@@ -32,7 +35,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build-files
-          path: ./dist/
+          path: .
+      
+      - name: Unzip build files
+        run: unzip build-files.zip -d ./dist/
       
       - name: Get list of variants for an image
         id: get-variants
@@ -84,7 +90,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build-files
-          path: ./dist/
+          path: .
+      
+      - name: Unzip build files
+        run: unzip build-files.zip -d ./dist/
 
       - name: Install devcontainer cli
         run: npm install -g @devcontainers/cli
