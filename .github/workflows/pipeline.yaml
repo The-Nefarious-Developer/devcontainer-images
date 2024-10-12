@@ -45,7 +45,7 @@ jobs:
         run: echo "::set-output name=matrix::$(jq -c '.variants' ./dist/variant-matrix.json)"
 
   test:
-    name: Run test on image
+    name: Run test(s)
     runs-on: ubuntu-latest
     needs: setup
     strategy:
@@ -72,8 +72,9 @@ jobs:
         run: test/${{ matrix.variant.IMAGE }}/test.sh
 
   publish:
-    name: Publish image
+    name: Publish image(s)
     runs-on: ubuntu-latest
+    environment: publishing
     needs: 
      - setup
      - test
