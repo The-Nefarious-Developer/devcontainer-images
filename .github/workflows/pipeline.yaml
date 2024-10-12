@@ -77,6 +77,9 @@ jobs:
       fail-fast: false
     steps:
 
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
@@ -90,7 +93,7 @@ jobs:
         run: |
           echo "starting devcontainer build..."
           devcontainer build \
-            --workspace-folder ./dist/${{ matrix.variant.IMAGE }}/${{ matrix.variant.VERSION }}/  \
+            --workspace-folder ./dist/${{ matrix.variant.IMAGE }}/${{ matrix.variant.VERSION }}  \
             --image-name ghcr.io/The-Nefarious-Developer/${{ matrix.variant.IMAGE }}:${{ matrix.variant.VERSION }} \
             # --no-cache true
 
