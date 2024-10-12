@@ -14,6 +14,12 @@ jobs:
       - name: Build dist
         run: npm run build
 
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: devcontainer-images
+          path: dist/
+
   setup:
     name: Setup environment
     runs-on: ubuntu-latest
@@ -21,6 +27,12 @@ jobs:
     outputs:
       variants_matrix: ${{ steps.get-variants.outputs.variants }}
     steps:
+
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: devcontainer-images
+          path: dist
 
       - name: Checkout
         uses: actions/checkout@v4
