@@ -29,7 +29,7 @@ create_image() {
 
     # Copy content from the source directory to the target directory using rsync
     echo "Copying files from $SRC_PATH to $TARGET_DIR"
-    rsync -a "$SRC_PATH"/ "$TARGET_DIR"/
+    rsync -a --exclude 'variants.json' "$SRC_PATH"/ "$TARGET_DIR"/
 
     # Replace the placeholder with the variant provided in devcontainer.json, if exists
     local DEVCONTAINER_JSON="$TARGET_DIR/.devcontainer/devcontainer.json"
