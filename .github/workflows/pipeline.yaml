@@ -46,7 +46,7 @@ jobs:
     needs: setup
     strategy:
       matrix:
-        include: ${{ fromJson(needs.setup.outputs.matrix) }}
+        variant: ${{ fromJson(needs.setup.outputs.matrix) }}
       fail-fast: false
     steps:
 
