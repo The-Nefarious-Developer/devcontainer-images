@@ -35,7 +35,7 @@ jobs:
       
       - name: Get list of variants for an image
         id: get-variants
-        run: echo "variants=$(cat variants.json)" >> $GITHUB_ENV
+        run: echo "variants=$(cat dist/variant-matrix.json)" >> $GITHUB_ENV
 
   # test:
   #   name: Run test on images
