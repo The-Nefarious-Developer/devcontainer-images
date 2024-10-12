@@ -2,21 +2,25 @@
 set -euo pipefail
 source "$(dirname "$0")/utils.sh"
 
-VARIANTS_FILE="src/${TEMPLATE}/variants.json"
+TEMPLATES=$(find src -mindepth 1 -maxdepth 1 -type d -printf "%f\n")
 
-# Check if the variants file exists
-if [[ ! -f "$VARIANTS_FILE" ]]; then
-    echo "Error: Variants file $VARIANTS_FILE not found."
-    exit 1
-fi
+for TEMPLATE in $TEMPLATES; do
+    VARIANTS_FILE="src/${TEMPLATE}/variants.json"
 
-# Extract the array from the JSON file using jq
-VARIANTS=$(jq -r '.variants[]' "$VARIANTS_FILE")
+    # Check if the variants file exists
+    if [[ ! -f "$VARIANTS_FILE" ]]; then
+        echo "Error: Variants file $VARIANTS_FILE not found."
+        exit 1
+    fi
 
-# Iterate over each variant and create an image
-while IFS= read -r VARIANT; do
-    create_image "$TEMPLATE" "$VARIANT"
-done <<< "$VARIANTS"
+    # Extract the array from the JSON file using jq
+    VARIANTS=$(jq -r '.variants[]' "$VARIANTS_FILE")
+
+    # Iterate over each variant and create an image
+    while IFS= read -r VARIANT; do
+        create_image "$TEMPLATE" "$VARIANT"
+    done <<< "$VARIANTS"
+done
 
 echo "Images creation process complete."
 
