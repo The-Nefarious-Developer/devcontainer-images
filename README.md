@@ -8,6 +8,7 @@ A set of development container images that can be used for SAP BTP development w
 
 ## Content
 
+- [`scripts`](scripts) - Contains a set of scripts to build the project.
 - [`src`](src) - Contains reusable dev container images.
 - [`test`](test) - Contains the test suite for each provided image.
 
@@ -17,7 +18,7 @@ These images were created following the guidelines provided through the [devcont
 
 ## Feedback
 
-Issues related to these images can be reported in [an issue](https://github.com/devcontainers/images/issues) in this repository.
+Issues related to these images can be reported in [an issue](https://github.com/The-Nefarious-Developer/devcontainer-images/issues) in this repository.
 
 ## Acknowledgments
 
