@@ -17,7 +17,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: devcontainer-images
+          name: dist
           path: dist/
 
   setup:
