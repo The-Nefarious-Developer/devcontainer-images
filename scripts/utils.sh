@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Build a docker image
+# Arguments:
+#   - devcontainer image name
+#   - variant for the upstream image
 create_image() {
     local IMAGE=$1
     local VARIANT=$2
@@ -43,6 +47,7 @@ create_image() {
     echo "Build process complete for image: $IMAGE, variant: $VARIANT."
 }
 
+# Create the file variant-matrix.json with the images and its versions
 create_variant_matrix() {
     local VARIANT_MATRIX_FILE="dist/variant-matrix.json"
     local IMAGE VARIANT IMAGES VARIANTS

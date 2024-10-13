@@ -3,6 +3,7 @@
 	"build": {
 		"dockerfile": "Dockerfile",
 		"args": {
+			// The variant arg will be replaced by the versions in the variants.json file during the build process
       		"VARIANT": "__VARIANT__"
     	}
 	},
