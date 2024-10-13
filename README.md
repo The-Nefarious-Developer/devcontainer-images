@@ -15,6 +15,12 @@ A set of development container images that can be used for SAP BTP development w
 
 ## Available Images
 
+Ths repository generates the following docker/devcontainer images using GHCR:
+
+| Image                     |
+|---------------------------|
+| sap-cap-javascript-node   |
+
 ## How it works
 
 The directories inside the [`src`](src) folder will contain the files that will compose the images to be created. 
@@ -34,16 +40,18 @@ Here is an example of `variants.json` file:
 }
 ```
 
-The usage of this file is is directly tied to the "variant" argument provided to the `devcontainer.json` and its values will be related to the image directories to generate a `variants-matrix.json` file during the **build** process. This procedure will enable a GitHub Actions pipeline automation to read all images that needs to be deployed through a matrix strategy set in the `setup` job.
+The usage of this file is is directly tied to the *variant* argument provided to the `devcontainer.json` and its values will be related to the image directories to generate a `variants-matrix.json` file during the **build** process.
+
+This procedure will enable a GitHub Actions pipeline automation to read all images that needs to be deployed through a matrix strategy configured in the `setup` job.
 
 ## Testing
 
-Each image to be created needs to have a test implementation within the test folder. The GitHub Actions pipeline will search for those images based on the `variant-matrix.json` created through the build process previously described.
+Each image needs to have a test implementation. The GitHub Actions pipeline will search for those images based on the `variant-matrix.json` created through the build script.
 
 > **Note:** The lack of test implementation might cause the CI/CD pipeline to fail.
 
 The test implementation is using functions available through the usage of the [`harness.sh`](test/test-utils/harness.sh) file. <br />
-Each image should call the `setup` function to properly configure the test environment before the evaluation process.
+Each image should call the `setup` function to properly configure the test environment. This process will generate a temporary docker image to be executed at the evaluation process.
 
 Template for test implementation:
 
@@ -65,7 +73,7 @@ To test the images locally, the environment variable `VARIANT` need to be set pr
 Template for command to run the test locally:
 
 ```
-VARIANT=<variant in the variants.json of the image> test/<image>/test.sh
+VARIANT=<upstream version> test/<image>/test.sh
 ```
 
 The [`package.json`](package.json) file contains an example of local testing through the script `test:local`.
