@@ -42,6 +42,7 @@
     "scripts": {
         "build": "scripts/build.sh",
         "semantic-release": "semantic-release",
-        "test:semantic-release": "semantic-release --dry-run --debug"
+        "test:semantic-release": "semantic-release --dry-run --debug",
+        "test:local": "VARIANT=22-bookworm test/sap-cap-javascript-node/test.sh"
     }
 }

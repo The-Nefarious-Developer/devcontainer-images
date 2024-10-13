@@ -13,9 +13,62 @@ A set of development container images that can be used for SAP BTP development w
 - [`src`](src) - Contains reusable dev container images.
 - [`test`](test) - Contains the test suite for each provided image.
 
-## References
+## Available Images
 
-These images were created following the guidelines provided through the [devcontainers/template-starter](https://github.com/devcontainers/template-starter).
+## How it works
+
+The directories inside the [`src`](src) folder will contain the files that will compose the images to be created. 
+
+Each image folder will have the following structure:
+- **.devcontainer** which is going to contain the `Dockerfile` and the `devcontainer.json` with properties and dependencies for the container image creation. 
+- **variants.json** with versions that will be set to the upstream image of that devcontainer.
+
+Here is an example of `variants.json` file:
+
+```json
+{
+    "variants": [
+        "version1",
+        "version2"
+    ]
+}
+```
+
+The usage of this file is is directly tied to the "variant" argument provided to the `devcontainer.json` and its values will be related to the image directories to generate a `variants-matrix.json` file during the **build** process. This procedure will enable a GitHub Actions pipeline automation to read all images that needs to be deployed through a matrix strategy set in the `setup` job.
+
+## Testing
+
+Each image to be created needs to have a test implementation within the test folder. The GitHub Actions pipeline will search for those images based on the `variant-matrix.json` created through the build process previously described.
+
+> **Note:** The lack of test implementation might cause the CI/CD pipeline to fail.
+
+The test implementation is using functions available through the usage of the [`harness.sh`](test/test-utils/harness.sh) file. <br />
+Each image should call the `setup` function to properly configure the test environment before the evaluation process.
+
+Template for test implementation:
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+source "$(dirname "$0")/../test-utils/harness.sh"
+
+setup "<image>" "$VARIANT"
+
+run_test "<test description>" "<evaluation command>" "<expected value>"
+...
+```
+
+### Testing locally
+
+To test the images locally, the environment variable `VARIANT` need to be set prior to the bash file execution.
+
+Template for command to run the test locally:
+
+```
+VARIANT=<variant in the variants.json of the image> test/<image>/test.sh
+```
+
+The [`package.json`](package.json) file contains an example of local testing through the script `test:local`.
 
 ## How can I contribute?
 
@@ -27,6 +80,10 @@ Contributions are welcome! Here's how you can get involved:
 4. **Test & Feedback:** Try the devcontainer images and give us feedback to improve them.
 
 Please follow the [contribution guidelines](CONTRIBUTING.md) for more details.
+
+## References
+
+These images were created following the guidelines provided through the [devcontainers/template-starter](https://github.com/devcontainers/template-starter) and [devcontainers/images](https://github.com/devcontainers/images).
 
 ## Acknowledgments
 
