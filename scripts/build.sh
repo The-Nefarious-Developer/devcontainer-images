@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+# shellcheck disable=SC1091
 source "$(dirname "$0")/utils.sh"
 
 # Get all directories in src (avoid using find if not needed)
