@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+# shellcheck disable=SC1091
 source "$(dirname "$0")/../test-utils/harness.sh"
 
 # setup "sap-cap-javascript-node" "22-bookworm"

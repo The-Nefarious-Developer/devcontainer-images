@@ -18,10 +18,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - name: Run ShellCheck
-        uses: ludeeus/action-shellcheck@v1.5.0
-        with:
-          args: '**/*.sh'
+      - name: ShellCheck
+        uses: ludeeus/action-shellcheck@2.0.0
 
   build:
     name: Determine images
