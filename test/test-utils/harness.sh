@@ -38,6 +38,11 @@ setup() {
   npx devcontainer up --workspace-folder "$TEST_DIR" --id-label "$ID_LABEL"
 }
 
+# Run test and evaluate result
+# Arguments:
+#   - test description
+#   - command to be executed
+#   - expected result
 run_test() {
   local description=$1
   local cmd=$2
