@@ -1,8 +1,8 @@
 name: Build, Test and Deploy
 on: 
   push:
-    paths:
-      - 'src/**'
+    # paths:
+    #   - 'src/**'
   workflow_dispatch:
 
 permissions:
@@ -18,153 +18,151 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - name: Run ShellCheck
-        uses: ludeeus/action-shellcheck@v1.5.0
-        with:
-          args: '**/*.sh'
+      - name: ShellCheck
+        uses: ludeeus/action-shellcheck@2.0.0     
 
-  build:
-    name: Determine images
-    runs-on: ubuntu-latest
-    needs: lint
-    steps:
+  # build:
+  #   name: Determine images
+  #   runs-on: ubuntu-latest
+  #   needs: lint
+  #   steps:
 
-      - name: Checkout
-        uses: actions/checkout@v4
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
 
-      - name: Build dist
-        run: npm run build
+  #     - name: Build dist
+  #       run: npm run build
 
-      - name: Compress build files
-        run: zip -r build-files.zip ./dist/
+  #     - name: Compress build files
+  #       run: zip -r build-files.zip ./dist/
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: build-files
-          path: build-files.zip
+  #     - name: Upload artifact
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         name: build-files
+  #         path: build-files.zip
 
-  setup:
-    name: Setup environment
-    runs-on: ubuntu-latest
-    needs: build
-    outputs:
-      matrix: ${{ steps.get-variants.outputs.matrix }}
-    steps:
+  # setup:
+  #   name: Setup environment
+  #   runs-on: ubuntu-latest
+  #   needs: build
+  #   outputs:
+  #     matrix: ${{ steps.get-variants.outputs.matrix }}
+  #   steps:
 
-      - name: Download artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: build-files
-          path: .
+  #     - name: Download artifact
+  #       uses: actions/download-artifact@v3
+  #       with:
+  #         name: build-files
+  #         path: .
       
-      - name: Unzip build files
-        run: unzip build-files.zip -d .
+  #     - name: Unzip build files
+  #       run: unzip build-files.zip -d .
       
-      - name: Get list of variants for an image
-        id: get-variants
-        run: echo "::set-output name=matrix::$(jq -c '.variants' ./dist/variant-matrix.json)"
+  #     - name: Get list of variants for an image
+  #       id: get-variants
+  #       run: echo "::set-output name=matrix::$(jq -c '.variants' ./dist/variant-matrix.json)"
 
-  test:
-    name: Run test(s)
-    runs-on: ubuntu-latest
-    needs: setup
-    strategy:
-      matrix:
-        variant: ${{ fromJson(needs.setup.outputs.matrix) }}
-      fail-fast: false
-    steps:
+  # test:
+  #   name: Run test(s)
+  #   runs-on: ubuntu-latest
+  #   needs: setup
+  #   strategy:
+  #     matrix:
+  #       variant: ${{ fromJson(needs.setup.outputs.matrix) }}
+  #     fail-fast: false
+  #   steps:
 
-      - name: Checkout
-        uses: actions/checkout@v4
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
+  #     - name: Setup Node
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: 22
+  #         cache: npm
 
-      - name: Install dependencies
-        run: npm ci
+  #     - name: Install dependencies
+  #       run: npm ci
 
-      - name: Run test for ${{ matrix.variant.IMAGE }}
-        env:
-          VARIANT: ${{ matrix.variant.VERSION }}
-        run: test/${{ matrix.variant.IMAGE }}/test.sh
+  #     - name: Run test for ${{ matrix.variant.IMAGE }}
+  #       env:
+  #         VARIANT: ${{ matrix.variant.VERSION }}
+  #       run: test/${{ matrix.variant.IMAGE }}/test.sh
 
-  publish:
-    name: Publish image(s)
-    if: ${{ github.event.base_ref == 'refs/heads/main' }}
-    runs-on: ubuntu-latest
-    environment: publishing
-    needs: 
-     - setup
-     - test
-    strategy:
-      matrix:
-        variant: ${{ fromJson(needs.setup.outputs.matrix) }}
-      fail-fast: false
-    steps:
+  # publish:
+  #   name: Publish image(s)
+  #   if: ${{ github.event.base_ref == 'refs/heads/main' }}
+  #   runs-on: ubuntu-latest
+  #   environment: publishing
+  #   needs: 
+  #    - setup
+  #    - test
+  #   strategy:
+  #     matrix:
+  #       variant: ${{ fromJson(needs.setup.outputs.matrix) }}
+  #     fail-fast: false
+  #   steps:
 
-      - name: Checkout
-        uses: actions/checkout@v4
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
 
-      - name: Download artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: build-files
-          path: .
+  #     - name: Download artifact
+  #       uses: actions/download-artifact@v3
+  #       with:
+  #         name: build-files
+  #         path: .
       
-      - name: Unzip build files
-        run: unzip build-files.zip -d .
+  #     - name: Unzip build files
+  #       run: unzip build-files.zip -d .
 
-      - name: Install devcontainer cli
-        run: npm install -g @devcontainers/cli
+  #     - name: Install devcontainer cli
+  #       run: npm install -g @devcontainers/cli
 
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.NEFARIOUS_TOKEN }}
+  #     - name: Login to GitHub Container Registry
+  #       uses: docker/login-action@v2
+  #       with:
+  #         registry: ghcr.io
+  #         username: ${{ github.actor }}
+  #         password: ${{ secrets.NEFARIOUS_TOKEN }}
 
-      - name: Build devcontainer
-        run: |
-          devcontainer build \
-            --workspace-folder ./dist/${{ matrix.variant.IMAGE }}/${{ matrix.variant.VERSION }}  \
-            --image-name ghcr.io/the-nefarious-developer/${{ matrix.variant.IMAGE }}:${{ matrix.variant.VERSION }}
+  #     - name: Build devcontainer
+  #       run: |
+  #         devcontainer build \
+  #           --workspace-folder ./dist/${{ matrix.variant.IMAGE }}/${{ matrix.variant.VERSION }}  \
+  #           --image-name ghcr.io/the-nefarious-developer/${{ matrix.variant.IMAGE }}:${{ matrix.variant.VERSION }}
 
-      - name: Push image to GitHub Container Registry
-        run: docker push ghcr.io/the-nefarious-developer/${{ matrix.variant.IMAGE }}:${{ matrix.variant.VERSION }}
+  #     - name: Push image to GitHub Container Registry
+  #       run: docker push ghcr.io/the-nefarious-developer/${{ matrix.variant.IMAGE }}:${{ matrix.variant.VERSION }}
 
-      - name: Make GHCR image public
-        uses: actions-ghcr/public-package@v1
-        with:
-          token: ${{ secrets.NEFARIOUS_TOKEN }}
-          owner: ${{ github.repository_owner }}
-          package_name: ${{ matrix.variant.IMAGE }}
-          version: ${{ matrix.variant.VERSION }}
+  #     - name: Make GHCR image public
+  #       uses: actions-ghcr/public-package@v1
+  #       with:
+  #         token: ${{ secrets.NEFARIOUS_TOKEN }}
+  #         owner: ${{ github.repository_owner }}
+  #         package_name: ${{ matrix.variant.IMAGE }}
+  #         version: ${{ matrix.variant.VERSION }}
   
-  release:
-    name: Generate release
-    if: ${{ github.event.base_ref == 'refs/heads/main' }}
-    runs-on: ubuntu-latest
-    needs: publish
-    steps:
+  # release:
+  #   name: Generate release
+  #   if: ${{ github.event.base_ref == 'refs/heads/main' }}
+  #   runs-on: ubuntu-latest
+  #   needs: publish
+  #   steps:
       
-      - name: Checkout
-        uses: actions/checkout@v4
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
+  #     - name: Setup Node
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: 22
+  #         cache: npm
 
-      - name: Install dependencies
-        run: npm ci
+  #     - name: Install dependencies
+  #       run: npm ci
 
-      - name: Generate version and release
-        env:
-          GITHUB_TOKEN: ${{ secrets.NEFARIOUS_TOKEN }}
-        run: npm run semantic-release
+  #     - name: Generate version and release
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.NEFARIOUS_TOKEN }}
+  #       run: npm run semantic-release
