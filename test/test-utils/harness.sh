@@ -2,30 +2,29 @@
 
 # Setup environment for tests to run (must run before anything else)
 # Arguments:
-#   - name of the current template being tested (e.g. `sap-cap-javascript-node`)
+#   - name of the current container image being tested (e.g. `sap-cap-javascript-node`)
 #   - image tag (will replace `${VARIANT}`, e.g. `22-bookworm`)
 setup() {
   # Set input variables
-  TEMPLATE=$1
+  IMAGE=$1
   IMAGE_TAG=$2
 
   PASSED_TESTS=0
   FAILED_TESTS=0
 
-  ID_LABEL="devcontainer-test=$TEMPLATE"
-  # TEST_DIR="src/$TEMPLATE"
+  ID_LABEL="devcontainer-test=$IMAGE"
 
   SRC_DIR=$(dirname "$0")
   TEST_ROOT=/tmp/devcontainer-images
-  TEST_DIR=$TEST_ROOT/$TEMPLATE
+  TEST_DIR=$TEST_ROOT/$IMAGE
 
   # Setup an empty test directory, ensuring test root directory exists
   mkdir -p $TEST_ROOT || true
   rm -rf "$TEST_DIR"
 
   # Copy devcontainer sources and test scripts/data to the temporary directory
-  cp -R "$SRC_DIR"/../../src/"$TEMPLATE" $TEST_ROOT/
-  cp -R "$SRC_DIR"/../../test/"$TEMPLATE" $TEST_ROOT/
+  cp -R "$SRC_DIR"/../../src/"$IMAGE" $TEST_ROOT/
+  cp -R "$SRC_DIR"/../../test/"$IMAGE" $TEST_ROOT/
 
   # Ensure the temporary directory is writable by the container
   chmod -R 777 $TEST_ROOT

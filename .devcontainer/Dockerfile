@@ -7,7 +7,7 @@ ENV DEVCONTAINER=true
 
 RUN \
     apt update \
-    && apt install -y sudo jq shellcheck \
+    && apt install -y sudo jq shellcheck rsync \
     # Ensure default `node` user has access to `sudo`
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME \
