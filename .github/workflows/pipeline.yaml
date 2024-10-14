@@ -27,7 +27,7 @@ jobs:
         run: |
           gh api --method PATCH \
           -H "Accept: application/vnd.github+json" \
-          /orgs/YOUR_ORG/packages/container/the-nefarious-developer%2F${{ matrix.variant.IMAGE }}/visibility \
+          /orgs/The-Nefarious-Developer/packages/container/the-nefarious-developer%2F${{ matrix.variant.IMAGE }}/visibility \
           -f visibility=public
 
   # build:
