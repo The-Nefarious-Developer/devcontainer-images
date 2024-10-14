@@ -27,7 +27,7 @@ jobs:
         run: |
           gh api --method PATCH \
           -H "Accept: application/vnd.github+json" \
-          /orgs/The-Nefarious-Developer/packages/container/the-nefarious-developer/sap-cap-javascript-node/visibility \
+          /orgs/The-Nefarious-Developer/packages/container/sap-cap-javascript-node/visibility \
           -f visibility=public
 
   # build:
