@@ -134,14 +134,6 @@ jobs:
 
       - name: Push image to GitHub Container Registry
         run: docker push ghcr.io/the-nefarious-developer/${{ matrix.variant.IMAGE }}:${{ matrix.variant.VERSION }}
-
-      - name: Make GHCR image public
-        uses: actions-ghcr/public-package@v1
-        with:
-          token: ${{ secrets.NEFARIOUS_TOKEN }}
-          owner: ${{ github.repository_owner }}
-          package_name: ${{ matrix.variant.IMAGE }}
-          version: ${{ matrix.variant.VERSION }}
   
   release:
     name: Generate release
