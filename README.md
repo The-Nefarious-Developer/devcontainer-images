@@ -5,7 +5,7 @@
 
 A set of development container images that can be used for SAP BTP development with Cloud Application Programming Model projects in Visual Studio Code.
 
-> *Don't worry, they are not "that" nefarious...*
+> These images were created to provide 
 
 ## Content
 
@@ -17,9 +17,9 @@ A set of development container images that can be used for SAP BTP development w
 
 Ths repository generates the following docker/devcontainer images using GHCR:
 
-| Image                     |
-|---------------------------|
-| sap-cap-javascript-node   |
+| Image                     | Base Images                                                                                                           | Variants                                                          |
+|---------------------------|-----------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------|
+| sap-cap-javascript-node   | [mcr.microsoft.com/devcontainers/javascript-node](https://hub.docker.com/r/microsoft/devcontainers-javascript-node)   | [Versions Available](./src/sap-cap-javascript-node/variants.json) |
 
 ## How it works
 
