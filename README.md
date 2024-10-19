@@ -17,7 +17,7 @@ A set of development container images that can be used for SAP BTP development w
 
 Ths repository generates the following docker/devcontainer images using GHCR:
 
-| Image                     | Base Images                                                                                                           | Variants                                                          |
+| Image                     | Base Image                                                                                                            | Variants                                                          |
 |---------------------------|-----------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------|
 | sap-cap-javascript-node   | [mcr.microsoft.com/devcontainers/javascript-node](https://hub.docker.com/r/microsoft/devcontainers-javascript-node)   | [Versions Available](./src/sap-cap-javascript-node/variants.json) |
 
