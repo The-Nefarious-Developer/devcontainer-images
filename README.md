@@ -7,7 +7,7 @@ A set of development container images that can be used for SAP BTP development w
 
 > These images were created to provide a consistent set of dependencies to the development container templates provided through [this repository](https://github.com/The-Nefarious-Developer/devcontainer-templates).
 
-If you have any question, suggestion or requests regarding what this repository can offer, you can use the [discussion area](https://github.com/orgs/The-Nefarious-Developer/discussions) of the **devcontainer-templates** project.
+If you have any question, suggestion or request regarding what this repository can offer, you can use the [discussion area](https://github.com/orgs/The-Nefarious-Developer/discussions) of the **devcontainer-templates** project.
 
 ## Content
 
