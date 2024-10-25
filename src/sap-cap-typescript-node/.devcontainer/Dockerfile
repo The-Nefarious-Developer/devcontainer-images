@@ -38,6 +38,7 @@ RUN \
     # Install Yeoman
     && npm install --global yo \
     # Install TypeScript
+    && npm install --global typescript \
     && npm install --global ts-node \
     # Install Typescript CDS lib to avoid constantly precompiling files during development
     && npm install --global tsx
