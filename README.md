@@ -22,6 +22,7 @@ Ths repository generates the following docker/devcontainer images using GHCR:
 | Image                     | Base Image                                                                                                            | Variants                                                          |
 |---------------------------|-----------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------|
 | sap-cap-javascript-node   | [mcr.microsoft.com/devcontainers/javascript-node](https://hub.docker.com/r/microsoft/devcontainers-javascript-node)   | [Versions Available](./src/sap-cap-javascript-node/variants.json) |
+| sap-cap-typescript-node   | [mcr.microsoft.com/devcontainers/typescript-node](https://hub.docker.com/r/microsoft/devcontainers-typescript-node)   | [Versions Available](./src/sap-cap-typescript-node/variants.json) |
 
 ## How it works
 
