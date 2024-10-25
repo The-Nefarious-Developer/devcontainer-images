@@ -1,0 +1,10 @@
+{
+    "variants": [
+        "22-bookworm",
+        "22-bullseye",
+        "20-bookworm",
+        "20-bullseye",
+        "18-bookworm",
+        "18-bullseye"
+    ]
+}
